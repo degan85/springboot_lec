@@ -28,7 +28,7 @@ public class JpaRunner implements ApplicationRunner{
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        // accountStudy();
+        accountStudy();
         // postComment();
         // postRemove();
         // useRepository();

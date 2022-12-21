@@ -6,7 +6,9 @@ package jdbc_test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class App {
     public String getGreeting() {
@@ -14,24 +16,53 @@ public class App {
     }
 
     public static void main(String[] args) throws SQLException {
-        // System.out.println(new App().getGreeting());
+
+        // String sql = "CREATE TABLE ACCOUNT (id int, username varchar(255), password varchar(255))";
+        // String insertSql = "insert into account values(3,'degan3', 'pass3')";
+        // String updateSql = "update account set username='de' where id=2";
+        // exeSql(insertSql);
+        String sSql = "select * from account";
+        selectSql(sSql);
+    }
+
+    private static void exeSql(String sql) throws SQLException {
+
+        // try with resource
+        try(Connection connection = getConnection()) {
+
+            try(PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.execute();
+            }
+        }
+
+    }
+
+    private static void selectSql(String sql) throws SQLException {
+
+        ResultSet rs = null;
+
+        // try with resource
+        try(Connection connection = getConnection()) {
+
+            try(PreparedStatement statement = connection.prepareStatement(sql)) {
+                rs = statement.executeQuery();
+
+                while(rs.next()){     
+                    String id = rs.getString("id");
+                    String username = rs.getString("username");
+                    String password = rs.getString("password");
+
+                    System.out.printf("@@@ id: %s username : %s password : %s \n", id, username, password);
+                }
+            }
+        }
+    }
+
+    private static Connection getConnection() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/springdata";
         String username = "degan";
         String password = "pass";
 
-        // try with resource
-        try(Connection connection = DriverManager.getConnection(url, username, password)) {
-            System.out.println("Connection create : "+connection);
-
-            String sql = "CREATE TABLE ACCOUNT (id int, username varchar(255), password varchar(255))";
-            try(PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.execute();
-            }
-
-            String insertSql = "insert into account values(1,'degan', 'pass')";
-            try(PreparedStatement statement = connection.prepareStatement(insertSql)) {
-                statement.execute();
-            }
-        }
+        return DriverManager.getConnection(url, username, password);
     }
 }
