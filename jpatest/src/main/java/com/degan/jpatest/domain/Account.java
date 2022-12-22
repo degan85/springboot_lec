@@ -51,6 +51,7 @@ public class Account {
     // })
     // private Address address;
 
+
     public Long getId() {
         return this.id;
     }
@@ -91,7 +92,6 @@ public class Account {
         this.no = no;
     }
 
-
     public Address getAddress() {
         return this.address;
     }
@@ -107,6 +107,7 @@ public class Account {
     public void setStudies(Set<Study> studies) {
         this.studies = studies;
     }
+    
 
     // add or remove convenience 메소드 만들어서 사용
     public void addStudy(Study study) {

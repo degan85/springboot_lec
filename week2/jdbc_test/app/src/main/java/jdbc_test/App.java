@@ -8,7 +8,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 public class App {
     public String getGreeting() {
@@ -18,11 +17,13 @@ public class App {
     public static void main(String[] args) throws SQLException {
 
         // String sql = "CREATE TABLE ACCOUNT (id int, username varchar(255), password varchar(255))";
-        // String insertSql = "insert into account values(3,'degan3', 'pass3')";
+        // String insertSql = "insert into account values(4,'degan4', 'pass4')";
         // String updateSql = "update account set username='de' where id=2";
         // exeSql(insertSql);
-        String sSql = "select * from account";
-        selectSql(sSql);
+        // String sSql = "select * from account";
+
+        // selectSql(sSql);
+        //create connection for a server installed in localhost, with a user "root" with no password
     }
 
     private static void exeSql(String sql) throws SQLException {
@@ -30,6 +31,7 @@ public class App {
         // try with resource
         try(Connection connection = getConnection()) {
 
+            System.out.println(connection);
             try(PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.execute();
             }
@@ -61,6 +63,9 @@ public class App {
     private static Connection getConnection() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/springdata";
         String username = "degan";
+
+        // String url = "jdbc:mariadb://localhost:3306/springdata";
+        // String username = "root";
         String password = "pass";
 
         return DriverManager.getConnection(url, username, password);
