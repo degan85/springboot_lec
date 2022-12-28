@@ -75,8 +75,8 @@ public class JpaRunner implements ApplicationRunner{
 
         account.addStudy(study);
 
-        // entityManager.persist(account);
-        // entityManager.persist(study);
+        entityManager.persist(account);
+        entityManager.persist(study);
 
         // JPA 안에 있는 hibernate 메소드를 unwrap 해서 호출
         Session session = entityManager.unwrap(Session.class);
