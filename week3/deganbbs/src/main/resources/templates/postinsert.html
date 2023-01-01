@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <div class="body-wrapper">
+        <h1>Insert page</h1>
+        <div class="nav-text">
+            <a href="/postlist">list</a>
+        </div>
+        <form action="#" th:action="@{/insert}" th:object="${postDto}" method="post">
+            <div>
+                <div class="form-component">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" th:field="*{title}"/>
+                </div>
+                <div class="form-component">
+                    <label for="content">Content</label>
+                    <textarea type="text" id="content" name="title" placeholder="내용을 입력하세요"  th:field="*{content}"></textarea>
+                </div>
+            </div>
+            <div class="form-component button-component">
+                <div th:if="${postDto.id == null}">
+                    <button class="submit-button" type="submit">Save</button>
+                </div>
+                <!-- 권한도 추가로 확인 -->
+                <div th:unless="${postDto.id == null}">
+                    <input type="hidden" name="id"  th:field="*{id}" th:value="${post.id}" />
+                    <button class="submit-button" type="submit"
+                        th:formaction="@{/update}">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

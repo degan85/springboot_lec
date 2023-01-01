@@ -1,5 +1,7 @@
 package com.bbs.deganbbs.domain;
 
+import com.bbs.deganbbs.domain.Account;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,12 +31,6 @@ public class Post extends CommonTime {
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
-
-    @Column(nullable = false)
-    private String writer;
-
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private int view;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

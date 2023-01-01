@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -29,9 +28,9 @@ abstract class CommonTime {
     private String modifiedDate;
 
     /* 해당 엔티티를 저장하기 이전에 실행 */
-    @PrePersist
+    // @PrePersist
     public void onPrePersist(){
-        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
         this.modifiedDate = this.createdDate;
     }
 

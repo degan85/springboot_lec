@@ -5,13 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-    <h1>degan BBS</h1>
-    <div>
-        <ul id="ulist">
-            <li th:each="list: ${list}" th:text="${list}"></li>
-        </ul>
+    <div class="body-wrapper">
+        <h1>degan BBS</h1>
+        <div class="nav-text">
+            <a href="/postinsert">write</a>
+        </div>
+        <div>
+            <ul id="ulist">
+                <li th:each="list: ${postList}" th:listId="${list.id}" >
+                    <div><a class="li-title" th:href="@{'/postlist/' + ${list.id}}" th:text="${list.title}"></a></div>
+                    <div class="li-date" th:text="${list.createdDate}"></div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="paging-list">
+            <div th:if="${hasPrev}" >
+                <div><a class="li-title" th:href="@{'/postlist?page=' + ${previous}}">previous</a></div>
+            </div>
+
+            <div th:if="${hasNext}" >
+                <div><a class="li-title" th:href="@{'/postlist?page=' + ${next}}">next</a></div>
+            </div>
+        </div>
+
+        <!-- <div th:text="${previous}" />
+        <div th:text="${next}" />
+        <div th:text="${hasNext}" />
+        <div th:text="${hasPrev}" /> -->
+
+
     </div>
+    <script th:inline="javascript">
+    </script>
 </body>
 </html>
